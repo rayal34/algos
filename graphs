@@ -1,0 +1,31 @@
+def dfs_nonrecursive(graph, start):
+    '''
+    1. Start by putting any one of the graph's vertices on top of a stack.
+    2. Take the top item of the stack and add it to the visited list.
+    3. Create a list of that vertex's adjacent nodes. Add the ones which aren't in the visited list to the top of stack.
+    4. Keep repeating steps 2 and 3 until the stack is empty.
+    '''
+    
+    stack = [start]
+    visited = set()
+
+    while stack:
+        v = stack.pop()
+        visited.add(v)
+        neighbors = graph[v]
+        for n in neighbors:
+            if n not in visited:
+                visited.add(n)
+                stack.append(n)
+            
+    return visited
+    
+    
+ def dfs_recursive(graph, start, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(start)
+    
+    for n in graph[start] - visited:
+        dfs(graph, n, visited)
+    return visited
